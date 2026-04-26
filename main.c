@@ -43,6 +43,7 @@ void GROUP1_IRQHandler(void) {
 
     // 幅度减少 (PA28)
     if (gpioA_idx & GPIO_SWITCHES_Amplitude_decrease_PIN) {
+        Delay_ms(20); // 消抖处理
         if (DL_GPIO_readPins(GPIOA, GPIO_SWITCHES_Amplitude_decrease_PIN) == 0) {
             AmplitudeControl_Decrease();
         }
@@ -51,6 +52,7 @@ void GROUP1_IRQHandler(void) {
 
     // 继电器按键 2 (PA12)
     if (gpioA_idx & GPIO_SWITCHES_Relay_Key_2_PIN) {
+        Delay_ms(20); // 消抖处理
         if (DL_GPIO_readPins(GPIOA, GPIO_SWITCHES_Relay_Key_2_PIN) == 0) {
             // TODO: 处理继电器 2 逻辑
         }
@@ -66,22 +68,25 @@ void GROUP1_IRQHandler(void) {
 
     // 频率增加 (PB6)
     if (gpioB_idx & GPIO_SWITCHES_frequency_increase_PIN) {
+        Delay_ms(20); // 消抖处理
         if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_frequency_increase_PIN) == 0) {
             FreqControl_IncreaseFreq();
         }
         DL_GPIO_clearInterruptStatus(GPIOB, GPIO_SWITCHES_frequency_increase_PIN);
     }
     
-    // 频率减少 (PB14)
+    // 频率减少 (PB1)
     if (gpioB_idx & GPIO_SWITCHES_frequency_decrease_PIN) {
+        Delay_ms(20); // 消抖处理
         if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_frequency_decrease_PIN) == 0) {
             FreqControl_DecreaseFreq();
         }
         DL_GPIO_clearInterruptStatus(GPIOB, GPIO_SWITCHES_frequency_decrease_PIN);
     }
 
-    // 幅度增加 (PB12)
+    // 幅度增加 (PB14)
     if (gpioB_idx & GPIO_SWITCHES_Amplitude_increase_PIN) {
+        Delay_ms(20); // 消抖处理
         if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_Amplitude_increase_PIN) == 0) {
             AmplitudeControl_Increase();
         }
@@ -90,6 +95,7 @@ void GROUP1_IRQHandler(void) {
 
     // 继电器按键 1 (PB13)
     if (gpioB_idx & GPIO_SWITCHES_Relay_Key_1_PIN) {
+        Delay_ms(20); // 消抖处理
         if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_Relay_Key_1_PIN) == 0) {
             // TODO: 处理继电器 1 逻辑
         }
