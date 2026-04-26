@@ -1,0 +1,67 @@
+[
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/AD7606/SPI_AD7606.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/AD9834/AD9834.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/AmplitudeControl/AmplitudeControl.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/Delay/Delay.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/FIR/FIR.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/FreqControl/FreqControl.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/Key/key.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/OLED/oled.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/USART/USART.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/clock_config.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/fft/FFT.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/main.c"
+   },
+   {
+      "directory" : "F:/Gao/Desktop/Hzz/signal/Debug",
+      "command"   : "clang++ -D__MSPM0G3505__ -I\"F:/Gao/Desktop/Hzz/signal/AD7606\" -I\"F:/Gao/Desktop/Hzz/signal/FIR\" -I\"F:/Gao/Desktop/Hzz/signal\" -I\"F:/Gao/Desktop/Hzz/signal/OLED\" -I\"F:/Gao/Desktop/Hzz/signal/FFT\" -I\"F:/Gao/Desktop/Hzz/signal/Key\" -I\"F:/Gao/Desktop/Hzz/signal/Debug\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/Core/Include\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source\" -I\"E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source/third_party/CMSIS/DSP/Include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c++/v1\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/lib/clang/18/include\" -isystem\"E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/include/c\" -xc",
+      "file"      : "F:/Gao/Desktop/Hzz/signal/Debug/ti_msp_dl_config.c"
+   }
+]
