@@ -14,16 +14,15 @@ int main(void) {
     delay_cycles(100);
     
     // 2. 初始化相关模块
-    AD9834_Init();
-    AD9834_SetOutput(5000, SINE_WAVE); 
-    AmplitudeControl_Init();
+    FreqControl_Init();        // 初始化频率控制模块
+    AmplitudeControl_Init();   // 初始化幅度控制模块
 
-    // 3. 设置 DAC 输出电压 (例如 1000mV)
-    AmplitudeControl_SetDirectVoltage(1605);
+    // 继电器初始状态：高电平 (未触发)
+    DL_GPIO_setPins(GPIO_SWITCHES_Relay_control_PORT, GPIO_SWITCHES_Relay_control_PIN);
 
-    // 4. 使能 GPIO 中断 (用于频率与幅度调节)
-    NVIC_EnableIRQ(GPIOA_INT_IRQn);
-    NVIC_EnableIRQ(GPIOB_INT_IRQn);
+    // 4. 使能中断 (用于频率与幅度调节)
+    NVIC_EnableIRQ(TIMER_0_INST_INT_IRQN);
+    DL_Timer_startCounter(TIMER_0_INST);
 
     while (1) {
         // 主循环：等待中断触发频率或幅度改变
@@ -31,89 +30,85 @@ int main(void) {
 }
 
 // ======================================================
-// GPIO 中断服务程序：处理频率和幅度调节
+// 继电器处理逻辑：按下切换状态
 // ======================================================
-void GROUP1_IRQHandler(void) {
-    bool anyPressed = false;
+static bool g_relay_state = true; // 记录当前继电器状态，true为高电平，false为低电平
 
-    // --- 处理 GPIOA 中断 ---
-    uint32_t gpioA_idx = DL_GPIO_getEnabledInterruptStatus(GPIOA,
-                        GPIO_SWITCHES_Amplitude_decrease_PIN |
-                        GPIO_SWITCHES_Relay_Key_2_PIN);
-
-    // 幅度减少 (PA28)
-    if (gpioA_idx & GPIO_SWITCHES_Amplitude_decrease_PIN) {
-        Delay_ms(20); // 消抖处理
-        if (DL_GPIO_readPins(GPIOA, GPIO_SWITCHES_Amplitude_decrease_PIN) == 0) {
-            AmplitudeControl_Decrease();
-        }
-        DL_GPIO_clearInterruptStatus(GPIOA, GPIO_SWITCHES_Amplitude_decrease_PIN);
-    }
-
-    // 继电器按键 2 (PA12)
-    if (gpioA_idx & GPIO_SWITCHES_Relay_Key_2_PIN) {
-        Delay_ms(20); // 消抖处理
-        if (DL_GPIO_readPins(GPIOA, GPIO_SWITCHES_Relay_Key_2_PIN) == 0) {
-            // TODO: 处理继电器 2 逻辑
-        }
-        DL_GPIO_clearInterruptStatus(GPIOA, GPIO_SWITCHES_Relay_Key_2_PIN);
-    }
-
-    // --- 处理 GPIOB 中断 ---
-    uint32_t gpioB_idx = DL_GPIO_getEnabledInterruptStatus(GPIOB,
-                        GPIO_SWITCHES_frequency_increase_PIN | 
-                        GPIO_SWITCHES_frequency_decrease_PIN | 
-                        GPIO_SWITCHES_Amplitude_increase_PIN |
-                        GPIO_SWITCHES_Relay_Key_1_PIN);
-
-    // 频率增加 (PB6)
-    if (gpioB_idx & GPIO_SWITCHES_frequency_increase_PIN) {
-        Delay_ms(20); // 消抖处理
-        if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_frequency_increase_PIN) == 0) {
-            FreqControl_IncreaseFreq();
-        }
-        DL_GPIO_clearInterruptStatus(GPIOB, GPIO_SWITCHES_frequency_increase_PIN);
-    }
-    
-    // 频率减少 (PB1)
-    if (gpioB_idx & GPIO_SWITCHES_frequency_decrease_PIN) {
-        Delay_ms(20); // 消抖处理
-        if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_frequency_decrease_PIN) == 0) {
-            FreqControl_DecreaseFreq();
-        }
-        DL_GPIO_clearInterruptStatus(GPIOB, GPIO_SWITCHES_frequency_decrease_PIN);
-    }
-
-    // 幅度增加 (PB14)
-    if (gpioB_idx & GPIO_SWITCHES_Amplitude_increase_PIN) {
-        Delay_ms(20); // 消抖处理
-        if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_Amplitude_increase_PIN) == 0) {
-            AmplitudeControl_Increase();
-        }
-        DL_GPIO_clearInterruptStatus(GPIOB, GPIO_SWITCHES_Amplitude_increase_PIN);
-    }
-
-    // 继电器按键 1 (PB13)
-    if (gpioB_idx & GPIO_SWITCHES_Relay_Key_1_PIN) {
-        Delay_ms(20); // 消抖处理
-        if (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_Relay_Key_1_PIN) == 0) {
-            // TODO: 处理继电器 1 逻辑
-        }
-        DL_GPIO_clearInterruptStatus(GPIOB, GPIO_SWITCHES_Relay_Key_1_PIN);
-    }
-
-    // --- LED 反馈逻辑 ---
-    // 检查是否有任何按键被按下 (低电平)
-    if ((DL_GPIO_readPins(GPIOA, GPIO_SWITCHES_Amplitude_decrease_PIN | GPIO_SWITCHES_Relay_Key_2_PIN) != 
-         (GPIO_SWITCHES_Amplitude_decrease_PIN | GPIO_SWITCHES_Relay_Key_2_PIN)) ||
-        (DL_GPIO_readPins(GPIOB, GPIO_SWITCHES_frequency_increase_PIN | GPIO_SWITCHES_frequency_decrease_PIN | GPIO_SWITCHES_Amplitude_increase_PIN | GPIO_SWITCHES_Relay_Key_1_PIN) != 
-         (GPIO_SWITCHES_frequency_increase_PIN | GPIO_SWITCHES_frequency_decrease_PIN | GPIO_SWITCHES_Amplitude_increase_PIN | GPIO_SWITCHES_Relay_Key_1_PIN))) {
-        anyPressed = true;
-    }
-
-    if (anyPressed) {
-        DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_USER_LED_1_PIN); // 点亮 LED
+void Relay_1_Toggle(void) {
+    // Relay_control 作为继电器电平控制引脚
+    // 默认高电平，低电平触发
+    g_relay_state = !g_relay_state;
+    if (g_relay_state) {
+        DL_GPIO_setPins(GPIO_SWITCHES_Relay_control_PORT, GPIO_SWITCHES_Relay_control_PIN);
     } else {
-        DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_USER_LED_1_PIN); // 熄灭 LED
+        DL_GPIO_clearPins(GPIO_SWITCHES_Relay_control_PORT, GPIO_SWITCHES_Relay_control_PIN);
+    }
+}
+
+// ======================================================
+// 按键处理逻辑：支持短按和长按连续触发
+// ======================================================
+#define LONG_PRESS_DELAY    50  // 长按触发延迟 (50 * 10ms = 500ms)
+#define REPEAT_RATE         10  // 连续触发速率 (10 * 10ms = 100ms)
+
+typedef struct {
+    GPIO_Regs *port;
+    uint32_t pin;
+    void (*handler)(void);
+    uint16_t count;
+    bool canRepeat;     // 是否支持长按连发
+} Key_State;
+
+static Key_State keys[] = {
+    {GPIOA, GPIO_SWITCHES_Amplitude_decrease_PIN, AmplitudeControl_Decrease, 0, true},
+    {GPIOB, GPIO_SWITCHES_frequency_increase_PIN, FreqControl_IncreaseFreq, 0, true},
+    {GPIOB, GPIO_SWITCHES_frequency_decrease_PIN, FreqControl_DecreaseFreq, 0, true},
+    {GPIOB, GPIO_SWITCHES_Amplitude_increase_PIN, AmplitudeControl_Increase, 0, true},
+    {GPIOB, GPIO_SWITCHES_Relay_Key_1_PIN, Relay_1_Toggle, 0, false} // 继电器不需要连发
+};
+
+void Key_Process(void) {
+    bool anyPressed = false;
+    
+    for (int i = 0; i < sizeof(keys) / sizeof(keys[0]); i++) {
+        if (DL_GPIO_readPins(keys[i].port, keys[i].pin) == 0) { // 按键按下 (低电平)
+            keys[i].count++;
+            anyPressed = true;
+            
+            if (keys[i].handler != NULL) {
+                // 1. 初次按下 (单次触发，增加到 3 次计数即 30ms 消除抖动)
+                if (keys[i].count == 3) {
+                    keys[i].handler();
+                }
+                // 2. 长按逻辑 (仅在支持连发时执行)
+                else if (keys[i].canRepeat && keys[i].count >= LONG_PRESS_DELAY) {
+                    if ((keys[i].count - LONG_PRESS_DELAY) % REPEAT_RATE == 0) {
+                        keys[i].handler();
+                    }
+                }
+            }
+        } else {
+            keys[i].count = 0; // 按键松开，重置计数
+        }
+    }
+
+    // LED 指示灯逻辑
+    if (anyPressed) {
+        DL_GPIO_setPins(GPIO_LEDS_PORT, GPIO_LEDS_USER_LED_1_PIN);
+    } else {
+        DL_GPIO_clearPins(GPIO_LEDS_PORT, GPIO_LEDS_USER_LED_1_PIN);
+    }
+}
+
+// ======================================================
+// 定时器中断服务程序：10ms 触发一次
+// ======================================================
+void TIMER_0_INST_IRQHandler(void) {
+    switch (DL_Timer_getPendingInterrupt(TIMER_0_INST)) {
+        case DL_TIMER_IIDX_ZERO:
+            Key_Process();
+            break;
+        default:
+            break;
     }
 }

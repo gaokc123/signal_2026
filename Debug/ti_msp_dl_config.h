@@ -97,6 +97,14 @@ extern "C" {
 
 
 
+/* Defines for TIMER_0 */
+#define TIMER_0_INST                                                     (TIMA0)
+#define TIMER_0_INST_IRQHandler                                 TIMA0_IRQHandler
+#define TIMER_0_INST_INT_IRQN                                   (TIMA0_INT_IRQn)
+#define TIMER_0_INST_LOAD_VALUE                                          (1249U)
+
+
+
 
 /* Defines for I2C_1 */
 #define I2C_1_INST                                                          I2C1
@@ -204,7 +212,7 @@ extern "C" {
 
 /* Defines for Busy: GPIOB.4 with pinCMx 17 on package pin 52 */
 // groups represented: ["GPIO_SWITCHES","AD7606"]
-// pins affected: ["frequency_increase","frequency_decrease","Amplitude_increase","Relay_Key_1","Busy"]
+// pins affected: ["Relay_Key_1","Busy"]
 #define GPIO_MULTIPLE_GPIOB_INT_IRQN                            (GPIOB_INT_IRQn)
 #define GPIO_MULTIPLE_GPIOB_INT_IIDX            (DL_INTERRUPT_GROUP1_IIDX_GPIOB)
 #define AD7606_Busy_IIDX                                     (DL_GPIO_IIDX_DIO4)
@@ -226,25 +234,18 @@ extern "C" {
 #define AD9834_RST_IOMUX                                         (IOMUX_PINCM48)
 /* Defines for frequency_increase: GPIOB.6 with pinCMx 23 on package pin 58 */
 #define GPIO_SWITCHES_frequency_increase_PORT                            (GPIOB)
-#define GPIO_SWITCHES_frequency_increase_IIDX                (DL_GPIO_IIDX_DIO6)
 #define GPIO_SWITCHES_frequency_increase_PIN                     (DL_GPIO_PIN_6)
 #define GPIO_SWITCHES_frequency_increase_IOMUX                   (IOMUX_PINCM23)
 /* Defines for frequency_decrease: GPIOB.1 with pinCMx 13 on package pin 48 */
 #define GPIO_SWITCHES_frequency_decrease_PORT                            (GPIOB)
-#define GPIO_SWITCHES_frequency_decrease_IIDX                (DL_GPIO_IIDX_DIO1)
 #define GPIO_SWITCHES_frequency_decrease_PIN                     (DL_GPIO_PIN_1)
 #define GPIO_SWITCHES_frequency_decrease_IOMUX                   (IOMUX_PINCM13)
-/* Defines for Amplitude_increase: GPIOB.14 with pinCMx 31 on package pin 2 */
+/* Defines for Amplitude_increase: GPIOB.12 with pinCMx 29 on package pin 64 */
 #define GPIO_SWITCHES_Amplitude_increase_PORT                            (GPIOB)
-#define GPIO_SWITCHES_Amplitude_increase_IIDX               (DL_GPIO_IIDX_DIO14)
-#define GPIO_SWITCHES_Amplitude_increase_PIN                    (DL_GPIO_PIN_14)
-#define GPIO_SWITCHES_Amplitude_increase_IOMUX                   (IOMUX_PINCM31)
+#define GPIO_SWITCHES_Amplitude_increase_PIN                    (DL_GPIO_PIN_12)
+#define GPIO_SWITCHES_Amplitude_increase_IOMUX                   (IOMUX_PINCM29)
 /* Defines for Amplitude_decrease: GPIOA.28 with pinCMx 3 on package pin 35 */
 #define GPIO_SWITCHES_Amplitude_decrease_PORT                            (GPIOA)
-// pins affected by this interrupt request:["Amplitude_decrease","Relay_Key_2"]
-#define GPIO_SWITCHES_GPIOA_INT_IRQN                            (GPIOA_INT_IRQn)
-#define GPIO_SWITCHES_GPIOA_INT_IIDX            (DL_INTERRUPT_GROUP1_IIDX_GPIOA)
-#define GPIO_SWITCHES_Amplitude_decrease_IIDX               (DL_GPIO_IIDX_DIO28)
 #define GPIO_SWITCHES_Amplitude_decrease_PIN                    (DL_GPIO_PIN_28)
 #define GPIO_SWITCHES_Amplitude_decrease_IOMUX                    (IOMUX_PINCM3)
 /* Defines for Relay_Key_1: GPIOB.13 with pinCMx 30 on package pin 1 */
@@ -252,11 +253,10 @@ extern "C" {
 #define GPIO_SWITCHES_Relay_Key_1_IIDX                      (DL_GPIO_IIDX_DIO13)
 #define GPIO_SWITCHES_Relay_Key_1_PIN                           (DL_GPIO_PIN_13)
 #define GPIO_SWITCHES_Relay_Key_1_IOMUX                          (IOMUX_PINCM30)
-/* Defines for Relay_Key_2: GPIOA.12 with pinCMx 34 on package pin 5 */
-#define GPIO_SWITCHES_Relay_Key_2_PORT                                   (GPIOA)
-#define GPIO_SWITCHES_Relay_Key_2_IIDX                      (DL_GPIO_IIDX_DIO12)
-#define GPIO_SWITCHES_Relay_Key_2_PIN                           (DL_GPIO_PIN_12)
-#define GPIO_SWITCHES_Relay_Key_2_IOMUX                          (IOMUX_PINCM34)
+/* Defines for Relay_control: GPIOA.12 with pinCMx 34 on package pin 5 */
+#define GPIO_SWITCHES_Relay_control_PORT                                 (GPIOA)
+#define GPIO_SWITCHES_Relay_control_PIN                         (DL_GPIO_PIN_12)
+#define GPIO_SWITCHES_Relay_control_IOMUX                        (IOMUX_PINCM34)
 
 
 
@@ -280,6 +280,7 @@ void SYSCFG_DL_GPIO_init(void);
 void SYSCFG_DL_SYSCTL_init(void);
 void SYSCFG_DL_SYSCTL_CLK_init(void);
 void SYSCFG_DL_PWM_0_init(void);
+void SYSCFG_DL_TIMER_0_init(void);
 void SYSCFG_DL_I2C_1_init(void);
 void SYSCFG_DL_UART_0_init(void);
 void SYSCFG_DL_SPI_0_init(void);
