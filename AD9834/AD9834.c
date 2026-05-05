@@ -77,6 +77,9 @@ void AD9834_Set_Wave(uint16_t type)
  */
 void AD9834_Init(void)
 {
+    AD9834_SYNC_H();
+    Delay_ms(1);
+
     // 复位序列：低电平->高电平->低电平
     AD9834_RST_L();    // 复位拉低
     Delay_ms(1);       // 保持1ms确保复位有效

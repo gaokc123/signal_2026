@@ -22,6 +22,7 @@ static inline void update_frequency_and_hardware(uint32_t new_freq)
  */
 void FreqControl_Init(void) {
     currentFreqHz = FREQ_DEFAULT;
+    AD9834_Init();
     // 设置AD9834的初始频率和波形
     AD9834_SetOutput(currentFreqHz, SINE_WAVE);
 }

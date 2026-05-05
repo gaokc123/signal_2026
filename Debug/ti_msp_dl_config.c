@@ -175,6 +175,9 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initPeripheralInputFunction(
         GPIO_SPI_1_IOMUX_POCI, GPIO_SPI_1_IOMUX_POCI_FUNC);
 
+    
+	DL_GPIO_setAnalogInternalResistor(GPIO_ADC12_0_IOMUX_C0, DL_GPIO_RESISTOR_NONE);
+
     DL_GPIO_initDigitalOutput(GPIO_LEDS_USER_LED_1_IOMUX);
 
     DL_GPIO_initDigitalOutput(GPIO_LEDS_USER_LED_2_IOMUX);
@@ -525,7 +528,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_SPI_1_init(void) {
 /* ADC12_0 Initialization */
 static const DL_ADC12_ClockConfig gADC12_0ClockConfig = {
     .clockSel       = DL_ADC12_CLOCK_SYSOSC,
-    .divideRatio    = DL_ADC12_CLOCK_DIVIDE_8,
+    .divideRatio    = DL_ADC12_CLOCK_DIVIDE_1,
     .freqRange      = DL_ADC12_CLOCK_FREQ_RANGE_24_TO_32,
 };
 SYSCONFIG_WEAK void SYSCFG_DL_ADC12_0_init(void)
@@ -537,8 +540,13 @@ SYSCONFIG_WEAK void SYSCFG_DL_ADC12_0_init(void)
     DL_ADC12_configConversionMem(ADC12_0_INST, ADC12_0_ADCMEM_0,
         DL_ADC12_INPUT_CHAN_0, DL_ADC12_REFERENCE_VOLTAGE_VDDA, DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP0, DL_ADC12_AVERAGING_MODE_DISABLED,
         DL_ADC12_BURN_OUT_SOURCE_DISABLED, DL_ADC12_TRIGGER_MODE_AUTO_NEXT, DL_ADC12_WINDOWS_COMP_MODE_DISABLED);
+    DL_ADC12_setSampleTime0(ADC12_0_INST,2);
     DL_ADC12_enableDMA(ADC12_0_INST);
-    DL_ADC12_setDMASamplesCnt(ADC12_0_INST,16);
+    DL_ADC12_setDMASamplesCnt(ADC12_0_INST,1);
+    DL_ADC12_enableDMATrigger(ADC12_0_INST,(DL_ADC12_DMA_MEM0_RESULT_LOADED));
+    /* Enable ADC12 interrupt */
+    DL_ADC12_clearInterruptStatus(ADC12_0_INST,(DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED));
+    DL_ADC12_enableInterrupt(ADC12_0_INST,(DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED));
     DL_ADC12_enableConversions(ADC12_0_INST);
 }
 
@@ -572,6 +580,21 @@ SYSCONFIG_WEAK void SYSCFG_DL_DMA_CH3_init(void)
 {
     DL_DMA_initChannel(DMA, DMA_CH3_CHAN_ID , (DL_DMA_Config *) &gDMA_CH3Config);
 }
+static const DL_DMA_Config gDMA_CH2Config = {
+    .transferMode   = DL_DMA_SINGLE_TRANSFER_MODE,
+    .extendedMode   = DL_DMA_NORMAL_MODE,
+    .destIncrement  = DL_DMA_ADDR_UNCHANGED,
+    .srcIncrement   = DL_DMA_ADDR_UNCHANGED,
+    .destWidth      = DL_DMA_WIDTH_HALF_WORD,
+    .srcWidth       = DL_DMA_WIDTH_HALF_WORD,
+    .trigger        = DMA_CH2_TRIGGER_SEL_SW,
+    .triggerType    = DL_DMA_TRIGGER_TYPE_EXTERNAL,
+};
+
+SYSCONFIG_WEAK void SYSCFG_DL_DMA_CH2_init(void)
+{
+    DL_DMA_initChannel(DMA, DMA_CH2_CHAN_ID , (DL_DMA_Config *) &gDMA_CH2Config);
+}
 static const DL_DMA_Config gDMA_CH0Config = {
     .transferMode   = DL_DMA_SINGLE_TRANSFER_MODE,
     .extendedMode   = DL_DMA_NORMAL_MODE,
@@ -603,7 +626,10 @@ SYSCONFIG_WEAK void SYSCFG_DL_DMA_CH1_init(void)
     DL_DMA_initChannel(DMA, DMA_CH1_CHAN_ID , (DL_DMA_Config *) &gDMA_CH1Config);
 }
 SYSCONFIG_WEAK void SYSCFG_DL_DMA_init(void){
+    DL_DMA_setBurstSize(DMA, DL_DMA_BURST_SIZE_INFINITY);
+    DL_DMA_enableRoundRobinPriority(DMA);
     SYSCFG_DL_DMA_CH3_init();
+    SYSCFG_DL_DMA_CH2_init();
     SYSCFG_DL_DMA_CH0_init();
     SYSCFG_DL_DMA_CH1_init();
 }

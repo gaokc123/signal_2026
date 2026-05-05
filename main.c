@@ -45,11 +45,7 @@ int main(void) {
     {
         char str[24];
         for (uint8_t i = 0; i < 10; i++) {
-            DL_ADC12_startConversion(ADC12_0_INST);
-            uint32_t timeout = 200000;
-            while ((DL_ADC12_getStatus(ADC12_0_INST) & DL_ADC12_STATUS_CONVERSION_ACTIVE) && (timeout--)) {}
-
-            uint16_t raw = (uint16_t)DL_ADC12_getMemResult(ADC12_0_INST, DL_ADC12_MEM_IDX_0);
+            uint16_t raw = ADC_Internal_Read();
             float v = ((float)raw / 4095.0f) * (float)ADC12_0_ADCMEM_0_REF_VOLTAGE_V;
 
             OLED_ShowStr(0, 0, "ADC TEST", 1);

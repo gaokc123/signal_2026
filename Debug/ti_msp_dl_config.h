@@ -187,6 +187,8 @@ extern "C" {
 #define ADC12_0_ADCMEM_0_REF_VOLTAGE_V                                       3.3
 #define GPIO_ADC12_0_C0_PORT                                               GPIOA
 #define GPIO_ADC12_0_C0_PIN                                       DL_GPIO_PIN_27
+#define GPIO_ADC12_0_IOMUX_C0                                    (IOMUX_PINCM60)
+#define GPIO_ADC12_0_IOMUX_C0_FUNC                (IOMUX_PINCM60_PF_UNCONNECTED)
 
 
 /* Defines for VREF */
@@ -200,13 +202,16 @@ extern "C" {
 
 
 /* Defines for DMA_CH3 */
-#define DMA_CH3_CHAN_ID                                                      (2)
+#define DMA_CH3_CHAN_ID                                                      (0)
 #define ADC12_0_INST_DMA_TRIGGER                      (DMA_ADC0_EVT_GEN_BD_TRIG)
+/* Defines for DMA_CH2 */
+#define DMA_CH2_CHAN_ID                                                      (3)
+#define DMA_CH2_TRIGGER_SEL_SW                               (DMA_SOFTWARE_TRIG)
 /* Defines for DMA_CH0 */
-#define DMA_CH0_CHAN_ID                                                      (1)
+#define DMA_CH0_CHAN_ID                                                      (5)
 #define SPI_0_INST_DMA_TRIGGER_0                              (DMA_SPI1_RX_TRIG)
 /* Defines for DMA_CH1 */
-#define DMA_CH1_CHAN_ID                                                      (0)
+#define DMA_CH1_CHAN_ID                                                      (1)
 #define SPI_0_INST_DMA_TRIGGER_1                              (DMA_SPI1_TX_TRIG)
 
 

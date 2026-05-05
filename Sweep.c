@@ -39,20 +39,17 @@ static uint16_t g_adcDmaBuf[SWEEP_DMA_MAX_SAMPLES];
 #define SWEEP_ADC_WAIT_GUARD 100000u
 
 static void adc_start_conversion_and_wait(void) {
-    DL_ADC12_setStartAddress(ADC12_0_INST, DL_ADC12_SEQ_START_ADDR_00);
-    DL_ADC12_setEndAddress(ADC12_0_INST, DL_ADC12_SEQ_END_ADDR_00);
-
-    if ((DL_ADC12_getStatus(ADC12_0_INST) & DL_ADC12_STATUS_CONVERSION_ACTIVE) == 0u) {
-        DL_ADC12_startConversion(ADC12_0_INST);
-    }
+    DL_ADC12_clearInterruptStatus(ADC12_0_INST, DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED);
+    DL_ADC12_startConversion(ADC12_0_INST);
 
     uint32_t guard = 0;
-    while ((DL_ADC12_getStatus(ADC12_0_INST) & DL_ADC12_STATUS_CONVERSION_ACTIVE) != 0u) {
+    while (DL_ADC12_getRawInterruptStatus(ADC12_0_INST, DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED) == 0u) {
         guard++;
         if (guard >= SWEEP_ADC_WAIT_GUARD) {
             break;
         }
     }
+    DL_ADC12_clearInterruptStatus(ADC12_0_INST, DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED);
 }
 
 #if SWEEP_USE_ADC_DMA
@@ -78,12 +75,19 @@ static void start_adc_dma(uint16_t samples) {
     uint8_t ch = (uint8_t)SWEEP_DMA_CHAN_ID;
     uint16_t n = clamp_u16(samples, 1, SWEEP_DMA_MAX_SAMPLES);
 
+    DL_ADC12_disableConversions(ADC12_0_INST);
+
+    DL_ADC12_enableDMA(ADC12_0_INST);
+    DL_ADC12_setDMASamplesCnt(ADC12_0_INST, n);
+
     DL_DMA_disableChannel(DMA, ch);
     DL_DMA_setSrcAddr(DMA, ch, DL_ADC12_getMemResultAddress(ADC12_0_INST, DL_ADC12_MEM_IDX_0));
     DL_DMA_setDestAddr(DMA, ch, (uint32_t)g_adcDmaBuf);
     DL_DMA_setTransferSize(DMA, ch, n);
 
     DL_ADC12_enableDMATrigger(ADC12_0_INST, DL_ADC12_DMA_MEM0_RESULT_LOADED);
+
+    DL_ADC12_enableConversions(ADC12_0_INST);
 
     DL_DMA_enableChannel(DMA, ch);
     DL_DMA_startTransfer(DMA, ch);
@@ -100,6 +104,11 @@ static bool is_adc_dma_done(void) {
 static void clear_adc_dma_done(void) {
     uint8_t ch = (uint8_t)SWEEP_DMA_CHAN_ID;
     DL_DMA_disableChannel(DMA, ch);
+    
+    DL_ADC12_disableConversions(ADC12_0_INST);
+    DL_ADC12_disableDMATrigger(ADC12_0_INST, DL_ADC12_DMA_MEM0_RESULT_LOADED);
+    DL_ADC12_disableDMA(ADC12_0_INST);
+    DL_ADC12_enableConversions(ADC12_0_INST);
 }
 
 static float compute_avg_voltage_from_dma(uint16_t samples) {
