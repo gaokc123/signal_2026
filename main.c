@@ -72,8 +72,8 @@ static bool g_relay_state = true; // 记录当前继电器状态，true为高电
 void Update_OLED_Display(void) {
     char str[20];
     
-    // 1. 显示标题
-    OLED_ShowStr(0, 0, "--- SIGNAL ---", 1);
+    // 1. 显示标题 (16号字体)
+    OLED_ShowStr(0, 0, "-- SIGNAL --", 2);
     
     // 2. 如果正在扫频，显示扫频界面
     if (Sweep_IsRunning()) {
@@ -86,25 +86,25 @@ void Update_OLED_Display(void) {
         return;
     }
 
-    // 3. 显示频率 (Hz 或 kHz)
+    // 3. 显示频率 (Hz 或 kHz) (16号字体)
     uint32_t freq = FreqControl_GetCurrentFreq();
     if (freq >= 1000) {
-        sprintf(str, "Freq: %lu.%lu kHz ", freq / 1000, (freq % 1000) / 100);
+        sprintf(str, "F:%lu.%lukHz", freq / 1000, (freq % 1000) / 100);
     } else {
-        sprintf(str, "Freq: %lu Hz    ", freq);
+        sprintf(str, "F:%luHz   ", freq);
     }
-    OLED_ShowStr(0, 2, str, 1);
+    OLED_ShowStr(0, 2, str, 2);
     
-    // 4. 显示幅度 (V)
+    // 4. 显示幅度 (V) (16号字体)
     float amp = AmplitudeControl_GetCurrentVoltage();
-    sprintf(str, "Amp:  %.2f V   ", amp);
-    OLED_ShowStr(0, 4, str, 1);
+    sprintf(str, "A:%.2fV  ", amp);
+    OLED_ShowStr(0, 4, str, 2);
     
-    // 5. 显示继电器状态 (高通/低通)
+    // 5. 显示继电器状态 (高通/低通) (16号字体)
     if (g_relay_state) {
-        OLED_ShowStr(0, 6, "Filter: HIGH-P", 1);
+        OLED_ShowStr(0, 6, "HIGH-PASS", 2);
     } else {
-        OLED_ShowStr(0, 6, "Filter: LOW-P ", 1);
+        OLED_ShowStr(0, 6, "LOW-PASS ", 2);
     }
 }
 

@@ -485,20 +485,19 @@ void Sweep_DisplayResultOLED(void) {
     float vMax = 0.0f;
     oled_draw_graph(points, count, &vMin, &vMax);
 
-    OLED_ShowStr(0, 0, "Sweep Done", 1);
-    OLED_ShowStr(0, 1, (unsigned char*)classify_filter(points, count, vMin, vMax), 1);
+    OLED_ShowStr(0, 0, (unsigned char*)classify_filter(points, count, vMin, vMax), 2);
 }
 
 void Sweep_DisplayOLED(void) {
     char str[20];
     if (g_sweep.isRunning) {
-        OLED_ShowStr(0, 0, "Sweeping...    ", 1);
-        sprintf(str, "F:%7luHz", g_sweep.currentFreq);
-        OLED_ShowStr(0, 2, str, 1);
+        OLED_ShowStr(0, 0, "Sweeping...  ", 2);
+        sprintf(str, "F:%6luHz", g_sweep.currentFreq);
+        OLED_ShowStr(0, 2, str, 2);
         sprintf(str, "P:%3d/%d", g_sweep.currentIndex + 1, g_sweep.totalPoints);
-        OLED_ShowStr(0, 4, str, 1);
-        sprintf(str, "V:%7.3fV", (g_sampleCount == 0) ? 0.0f : (g_sampleSum / g_sampleCount));
-        OLED_ShowStr(0, 6, str, 1);
+        OLED_ShowStr(0, 4, str, 2);
+        sprintf(str, "V:%.3fV", (g_sampleCount == 0) ? 0.0f : (g_sampleSum / g_sampleCount));
+        OLED_ShowStr(0, 6, str, 2);
     } else if (g_sweep.isComplete) {
         Sweep_DisplayResultOLED();
     }
