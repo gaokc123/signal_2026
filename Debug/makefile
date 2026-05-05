@@ -10,6 +10,8 @@ GEN_OPTS__FLAG := @"./device.opt"
 GEN_CMDS__FLAG := -Wl,-l"./device_linker.cmd" 
 
 ORDERED_OBJS += \
+"./ADC_Internal.o" \
+"./Sweep.o" \
 "./clock_config.o" \
 "./main.o" \
 "./ti_msp_dl_config.o" \
@@ -174,8 +176,8 @@ signal.out: $(OBJS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "clock_config.o" "main.o" "ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" "AD7606\SPI_AD7606.o" "AD9834\AD9834.o" "AmplitudeControl\AmplitudeControl.o" "Delay\Delay.o" "FIR\FIR.o" "FreqControl\FreqControl.o" "Key\key.o" "OLED\oled.o" "USART\USART.o" "fft\FFT.o" 
-	-$(RM) "clock_config.d" "main.d" "ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" "AD7606\SPI_AD7606.d" "AD9834\AD9834.d" "AmplitudeControl\AmplitudeControl.d" "Delay\Delay.d" "FIR\FIR.d" "FreqControl\FreqControl.d" "Key\key.d" "OLED\oled.d" "USART\USART.d" "fft\FFT.d" 
+	-$(RM) "ADC_Internal.o" "Sweep.o" "clock_config.o" "main.o" "ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" "AD7606\SPI_AD7606.o" "AD9834\AD9834.o" "AmplitudeControl\AmplitudeControl.o" "Delay\Delay.o" "FIR\FIR.o" "FreqControl\FreqControl.o" "Key\key.o" "OLED\oled.o" "USART\USART.o" "fft\FFT.o" 
+	-$(RM) "ADC_Internal.d" "Sweep.d" "clock_config.d" "main.d" "ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" "AD7606\SPI_AD7606.d" "AD9834\AD9834.d" "AmplitudeControl\AmplitudeControl.d" "Delay\Delay.d" "FIR\FIR.d" "FreqControl\FreqControl.d" "Key\key.d" "OLED\oled.d" "USART\USART.d" "fft\FFT.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

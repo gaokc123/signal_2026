@@ -61,6 +61,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_init(void)
     SYSCFG_DL_UART_0_init();
     SYSCFG_DL_SPI_0_init();
     SYSCFG_DL_SPI_1_init();
+    SYSCFG_DL_ADC12_0_init();
     SYSCFG_DL_VREF_init();
     SYSCFG_DL_DMA_init();
     SYSCFG_DL_SYSTICK_init();
@@ -113,6 +114,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_UART_Main_reset(UART_0_INST);
     DL_SPI_reset(SPI_0_INST);
     DL_SPI_reset(SPI_1_INST);
+    DL_ADC12_reset(ADC12_0_INST);
     DL_VREF_reset(VREF);
 
 
@@ -127,6 +129,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_initPower(void)
     DL_UART_Main_enablePower(UART_0_INST);
     DL_SPI_enablePower(SPI_0_INST);
     DL_SPI_enablePower(SPI_1_INST);
+    DL_ADC12_enablePower(ADC12_0_INST);
     DL_VREF_enablePower(VREF);
 
 
@@ -222,11 +225,18 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
 		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_PULL_UP,
 		 DL_GPIO_DRIVE_STRENGTH_LOW, DL_GPIO_HIZ_DISABLE);
 
+    DL_GPIO_initDigitalInputFeatures(GPIO_SWITCHES_Frequency_SWEEP_IOMUX,
+		 DL_GPIO_INVERSION_DISABLE, DL_GPIO_RESISTOR_PULL_UP,
+		 DL_GPIO_HYSTERESIS_DISABLE, DL_GPIO_WAKEUP_DISABLE);
+
     DL_GPIO_clearPins(GPIOA, AD9834_SYNC_PIN);
     DL_GPIO_setPins(GPIOA, GPIO_SWITCHES_Relay_control_PIN);
     DL_GPIO_enableOutput(GPIOA, AD9834_SYNC_PIN |
 		GPIO_SWITCHES_Relay_control_PIN);
+    DL_GPIO_setLowerPinsPolarity(GPIOA, DL_GPIO_PIN_8_EDGE_RISE_FALL);
     DL_GPIO_setUpperPinsPolarity(GPIOA, DL_GPIO_PIN_28_EDGE_RISE_FALL);
+    DL_GPIO_clearInterruptStatus(GPIOA, GPIO_SWITCHES_Frequency_SWEEP_PIN);
+    DL_GPIO_enableInterrupt(GPIOA, GPIO_SWITCHES_Frequency_SWEEP_PIN);
     DL_GPIO_clearPins(GPIOB, GPIO_LEDS_USER_LED_1_PIN |
 		GPIO_LEDS_USER_LED_2_PIN |
 		GPIO_LEDS_USER_LED_3_PIN |
@@ -512,6 +522,26 @@ SYSCONFIG_WEAK void SYSCFG_DL_SPI_1_init(void) {
     DL_SPI_enable(SPI_1_INST);
 }
 
+/* ADC12_0 Initialization */
+static const DL_ADC12_ClockConfig gADC12_0ClockConfig = {
+    .clockSel       = DL_ADC12_CLOCK_SYSOSC,
+    .divideRatio    = DL_ADC12_CLOCK_DIVIDE_8,
+    .freqRange      = DL_ADC12_CLOCK_FREQ_RANGE_24_TO_32,
+};
+SYSCONFIG_WEAK void SYSCFG_DL_ADC12_0_init(void)
+{
+    DL_ADC12_setClockConfig(ADC12_0_INST, (DL_ADC12_ClockConfig *) &gADC12_0ClockConfig);
+    DL_ADC12_initSingleSample(ADC12_0_INST,
+        DL_ADC12_REPEAT_MODE_ENABLED, DL_ADC12_SAMPLING_SOURCE_AUTO, DL_ADC12_TRIG_SRC_SOFTWARE,
+        DL_ADC12_SAMP_CONV_RES_12_BIT, DL_ADC12_SAMP_CONV_DATA_FORMAT_UNSIGNED);
+    DL_ADC12_configConversionMem(ADC12_0_INST, ADC12_0_ADCMEM_0,
+        DL_ADC12_INPUT_CHAN_0, DL_ADC12_REFERENCE_VOLTAGE_VDDA, DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP0, DL_ADC12_AVERAGING_MODE_DISABLED,
+        DL_ADC12_BURN_OUT_SOURCE_DISABLED, DL_ADC12_TRIGGER_MODE_AUTO_NEXT, DL_ADC12_WINDOWS_COMP_MODE_DISABLED);
+    DL_ADC12_enableDMA(ADC12_0_INST);
+    DL_ADC12_setDMASamplesCnt(ADC12_0_INST,16);
+    DL_ADC12_enableConversions(ADC12_0_INST);
+}
+
 
 static const DL_VREF_Config gVREFConfig = {
     .vrefEnable     = DL_VREF_ENABLE_ENABLE,
@@ -527,6 +557,21 @@ SYSCONFIG_WEAK void SYSCFG_DL_VREF_init(void) {
 }
 
 
+static const DL_DMA_Config gDMA_CH3Config = {
+    .transferMode   = DL_DMA_SINGLE_TRANSFER_MODE,
+    .extendedMode   = DL_DMA_NORMAL_MODE,
+    .destIncrement  = DL_DMA_ADDR_INCREMENT,
+    .srcIncrement   = DL_DMA_ADDR_UNCHANGED,
+    .destWidth      = DL_DMA_WIDTH_HALF_WORD,
+    .srcWidth       = DL_DMA_WIDTH_HALF_WORD,
+    .trigger        = ADC12_0_INST_DMA_TRIGGER,
+    .triggerType    = DL_DMA_TRIGGER_TYPE_EXTERNAL,
+};
+
+SYSCONFIG_WEAK void SYSCFG_DL_DMA_CH3_init(void)
+{
+    DL_DMA_initChannel(DMA, DMA_CH3_CHAN_ID , (DL_DMA_Config *) &gDMA_CH3Config);
+}
 static const DL_DMA_Config gDMA_CH0Config = {
     .transferMode   = DL_DMA_SINGLE_TRANSFER_MODE,
     .extendedMode   = DL_DMA_NORMAL_MODE,
@@ -558,6 +603,7 @@ SYSCONFIG_WEAK void SYSCFG_DL_DMA_CH1_init(void)
     DL_DMA_initChannel(DMA, DMA_CH1_CHAN_ID , (DL_DMA_Config *) &gDMA_CH1Config);
 }
 SYSCONFIG_WEAK void SYSCFG_DL_DMA_init(void){
+    SYSCFG_DL_DMA_CH3_init();
     SYSCFG_DL_DMA_CH0_init();
     SYSCFG_DL_DMA_CH1_init();
 }

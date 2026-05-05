@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Cortex Debug (XDS110)",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/Debug/signal.out",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "external",
+            "gdbTarget": "localhost:55000",
+            "gdbPath": "E:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.10/bin/arm-none-eabi-gdb.exe",
+            "preLaunchTask": "Start TI GDB Agent",
+            "device": "MSPM0G3507",
+            "interface": "swd",
+            "overrideLaunchCommands": [
+                "monitor reset halt",
+                "load",
+                "monitor reset init"
+            ]
+        }
+    ]
+}

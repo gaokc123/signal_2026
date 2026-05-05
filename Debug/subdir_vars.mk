@@ -9,6 +9,8 @@ SYSCFG_SRCS += \
 ../main.syscfg 
 
 C_SRCS += \
+../ADC_Internal.c \
+../Sweep.c \
 ../clock_config.c \
 ../main.c \
 ./ti_msp_dl_config.c \
@@ -23,6 +25,8 @@ GEN_FILES += \
 ./ti_msp_dl_config.c 
 
 C_DEPS += \
+./ADC_Internal.d \
+./Sweep.d \
 ./clock_config.d \
 ./main.d \
 ./ti_msp_dl_config.d \
@@ -32,6 +36,8 @@ GEN_OPTS += \
 ./device.opt 
 
 OBJS += \
+./ADC_Internal.o \
+./Sweep.o \
 ./clock_config.o \
 ./main.o \
 ./ti_msp_dl_config.o \
@@ -43,6 +49,8 @@ GEN_MISC_FILES += \
 ./Event.dot 
 
 OBJS__QUOTED += \
+"ADC_Internal.o" \
+"Sweep.o" \
 "clock_config.o" \
 "main.o" \
 "ti_msp_dl_config.o" \
@@ -54,6 +62,8 @@ GEN_MISC_FILES__QUOTED += \
 "Event.dot" 
 
 C_DEPS__QUOTED += \
+"ADC_Internal.d" \
+"Sweep.d" \
 "clock_config.d" \
 "main.d" \
 "ti_msp_dl_config.d" \
@@ -65,6 +75,8 @@ GEN_FILES__QUOTED += \
 "ti_msp_dl_config.c" 
 
 C_SRCS__QUOTED += \
+"../ADC_Internal.c" \
+"../Sweep.c" \
 "../clock_config.c" \
 "../main.c" \
 "./ti_msp_dl_config.c" \

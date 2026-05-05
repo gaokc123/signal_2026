@@ -1,4 +1,4 @@
-#if 0
+#if 1
 #include "oled.h"
 #include "ti_msp_dl_config.h"
 #include "codetab.h"

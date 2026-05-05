@@ -1,3 +1,5 @@
+"./ADC_Internal.o"
+"./Sweep.o"
 "./clock_config.o"
 "./main.o"
 "./ti_msp_dl_config.o"

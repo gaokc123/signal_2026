@@ -1,0 +1,78 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CCS: Build Project",
+            "type": "shell",
+            "command": "E:/Program/TI/ccs/utils/bin/gmake.exe",
+            "args": [
+                "-j",
+                "8",
+                "-C",
+                "Debug",
+                "all"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "CCS: Clean Project",
+            "type": "shell",
+            "command": "E:/Program/TI/ccs/utils/bin/gmake.exe",
+            "args": [
+                "-C",
+                "Debug",
+                "clean"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "CCS: Flash (Download)",
+            "type": "shell",
+            "command": "E:/Program/TI/ccs/ccs_base/DebugServer/bin/DSLite.exe",
+            "args": [
+                "flash",
+                "-c",
+                "${workspaceFolder}/targetConfigs/MSPM0G3507.ccxml",
+                "-f",
+                "${workspaceFolder}/Debug/signal.out"
+            ],
+            "dependsOn": "CCS: Build Project",
+            "problemMatcher": []
+        },
+        {
+            "label": "Start TI GDB Agent",
+            "type": "shell",
+            "command": "E:/Program/TI/ccs/ccs_base/common/uscif/gdb_agent_console.exe",
+            "args": [
+                "${workspaceFolder}/targetConfigs/MSPM0G3507.ccxml"
+            ],
+            "dependsOn": "CCS: Build Project",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "^.*$",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".*",
+                    "endsPattern": ".*[Gg][Dd][Bb].*listening.*port.*"
+                }
+            }
+        }
+    ]
+}

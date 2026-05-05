@@ -7,5 +7,14 @@
             "command": "extension.executeFile",
             "priority": 3.5
         }
+    ],
+    "C_Cpp.default.compilerPath": "E:/Program/TI/ccs/tools/compiler/ti-cgt-armllvm_4.0.3.LTS/bin/tiarmclang.exe",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/**",
+        "E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source"
+    ],
+    "C_Cpp.default.browse.path": [
+        "${workspaceFolder}",
+        "E:/Program/TI/SDK/mspm0_sdk_2_04_00_06/source"
     ]
 }
